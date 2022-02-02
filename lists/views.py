@@ -14,8 +14,10 @@ def new_list(request):
     try:
         item.full_clean()
     except ValidationError:
-        return render(request, 'home.html')
+        error = "You can't have an empty list item"
+        return render(request, 'home.html', {"error": error})
     return redirect(f'/lists/{list_.id}/')
+
 
 def add_item(request, list_id):
     list_ = List.objects.get(id=list_id)
